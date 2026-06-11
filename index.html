@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Me | RDBWebDesign</title>
   
-  <!-- 1. The Anti-Flashbang Script (Must be at the top of the head) -->
   <script>
     if (localStorage.getItem('theme') === 'dark') {
       document.documentElement.classList.add('dark-mode');
@@ -35,7 +34,6 @@
     html.dark-mode footer { border-top: 1px solid #333; color: #555; }
     
     /* Dark Mode styling for the new media features */
-    html.dark-mode .slider-btn { background: rgba(255,255,255,0.2); color: #fff; }
     html.dark-mode .image-caption { background: #1e1e1e; border-top: 1px solid #333; color: #bbb; }
 
     a { color: #222; }
@@ -73,35 +71,23 @@
       flex: 1 1 400px; /* Grows, shrinks, and bases width at 400px */
     }
 
-    /* ── Image Slider Container ── */
-    .profile-slider {
+    /* ── Static Image Container ── */
+    .profile-image-container {
       flex: 1 1 300px; /* Bases layout width at 300px */
-      position: relative;
       max-width: 100%;
       border-radius: 4px;
-      overflow: hidden; /* Keeps caption and images inside borders */
+      overflow: hidden; /* Keeps caption and image inside borders */
+      
+      
     }
 
-      /* ── Update your slide class ── */
-      .slide {
-          display: none;
-          width: 100%;
-          /* Force every slide to have the exact same square aspect ratio */
-          aspect-ratio: 1 / 1;
-      }
-
-          /* Show the current active image */
-          .slide.active {
-              display: block;
-          }
-
-          /* ── Force the images to fill the frame completely ── */
-          .slide img {
-              width: 100%;
-              height: 100%; /* Force it to take up 100% of the slide's height */
-              display: block;
-              object-fit: cover; /* This crops the image perfectly to fill the frame */
-          }
+    .profile-image-container img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 1 / 1;
+      object-fit: cover; /* Crops the image perfectly to a square frame */
+object-position: top;
+    }
 
     /* Image Footer / Caption Styling */
     .image-caption {
@@ -111,36 +97,6 @@
       font-family: sans-serif;
       color: #444;
       transition: background 0.6s ease;
-    }
-
-    /* Slider Navigation Buttons */
-    .slider-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0, 0, 0, 0.4);
-      color: white;
-      border: none;
-      padding: 12px 16px;
-      cursor: pointer;
-      font-size: 18px;
-      font-weight: bold;
-      border-radius: 4px;
-      user-select: none;
-      transition: background 0.2s;
-      z-index: 10;
-    }
-
-    .slider-btn:hover {
-      background: rgba(0, 0, 0, 0.7);
-    }
-
-    .prev { left: 10px; }
-    .next { right: 10px; }
-
-    /* Adjust button placement if a caption pushes them up */
-    .slider-btn {
-      top: 40%; 
     }
 
     footer {
@@ -169,8 +125,6 @@
     
     <div class="profile-container">
       
-      
-      <!-- Text Description Element -->
       <div class="profile-text">
         <p>
           Hi! My name is Ryan Bohnert and I'm a Computer Information Technology student at the 
@@ -179,27 +133,11 @@
           organizations. I specialized in home pages, contact pages, photo galleries, and more.
         </p>
       </div>
-<!-- Image Slider Element -->
-      <div class="profile-slider">
-        <button class="slider-btn prev" onclick="changeSlide(-1)">&#10094;</button>
-        <button class="slider-btn next" onclick="changeSlide(1)">&#10095;</button>
 
-        <div class="slide active">
-            <img src="aboutme.jpg" alt="Accepting Esports Academic Excellence Award">
-            <div class="image-caption">Me (Right) Accepting Esports Academic Excellence Award.</div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="slide">
-          <img src="https://via.placeholder.com/350x350/b0b0b0/fff" alt="Alternative Profile Pic">
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="slide">
-          <img src="https://via.placeholder.com/350x350/888888/fff" alt="Desk setup">
-        </div>
+      <div class="profile-image-container">
+        <img src="aboutme.jpg" alt="Accepting Esports Academic Excellence Award">
+        <div class="image-caption">Me (Right) Accepting Esports Academic Excellence Award.</div>
       </div>
-
 
     </div>
   </section>
@@ -208,7 +146,6 @@
     <p>&copy; 2026 RDBWebDesign</p>
   </footer>
 
-  <!-- Theme Toggle Script -->
   <script>
     const toggle = document.getElementById('theme-toggle');
     
@@ -228,30 +165,6 @@
         toggle.textContent = 'Dark Mode';
       }
     });
-  </script>
-
-  <!-- Slider Functionality Script -->
-  <script>
-    let currentSlideIndex = 0;
-    const slides = document.querySelectorAll('.slide');
-
-    function changeSlide(direction) {
-      // Hide the current active slide
-      slides[currentSlideIndex].classList.remove('active');
-      
-      // Calculate new index
-      currentSlideIndex += direction;
-      
-      // Loop control rules
-      if (currentSlideIndex >= slides.length) {
-        currentSlideIndex = 0; // Loop back to start
-      } else if (currentSlideIndex < 0) {
-        currentSlideIndex = slides.length - 1; // Go to last slide
-      }
-      
-      // Show the new active slide
-      slides[currentSlideIndex].classList.add('active');
-    }
   </script>
 </body>
 </html>
